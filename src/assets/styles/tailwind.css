@@ -1726,9 +1726,12 @@ select {
   margin-left: 0.75rem;
 }
 
-.ml-7 {
-  margin-left: 7.75rem;
+
+
+.mr-7 {
+  margin-left: -7.75rem;
 }
+
 
 .mt-4 {
   margin-top: 1rem;

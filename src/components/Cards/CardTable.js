@@ -224,6 +224,15 @@ const [image,setImage] = useState()
                     >
                       Supprimer
                     </button>
+                    <button
+                      className="bg-indigo-500  text-white active:bg-lightBlue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      // onClick={() => {
+                      //   handleDeleteUser(user._id);
+                      // }}
+                    >
+                      Update
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -231,14 +240,14 @@ const [image,setImage] = useState()
           </table>
         </div>
         {showModal && (
-        <div className=" inset-0 flex items-center justify-center ml-7 z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-6  rounded shadow-lg w-96">
+        <div className="fixed inset-0 flex items-left justify-center mr-3 z-50 bg-black bg-opacity-50">
+          <div className="bg-white p-6  rounded shadow-lg ">
             <form>            
               <h6 className="text-blueGray-400 text-sm mt-3 ml-2 mb-6 font-bold uppercase">
               Ajouter un utilisateur
             </h6>
             <div className="flex flex-wrap">              
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full lg:w-3/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -255,7 +264,7 @@ const [image,setImage] = useState()
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full lg:w-3/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -272,7 +281,8 @@ const [image,setImage] = useState()
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
+              
+              <div className="w-full lg:w-3/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -289,7 +299,7 @@ const [image,setImage] = useState()
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full lg:w-3/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -307,7 +317,7 @@ const [image,setImage] = useState()
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full lg:w-3/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -342,7 +352,7 @@ const [image,setImage] = useState()
                 </button>
                 <button
                   type="button"
-                  className="bg-lightBlue-500 text-white px-4 py-2 rounded"
+                  className="bg-pink-500 ml-2 text-white px-4 py-2 rounded"
                 onClick={handleAddUserWithIMG}
                 >
                   Ajouter avec image
