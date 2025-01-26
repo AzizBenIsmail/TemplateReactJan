@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { addUser } from "../../services/apiUser";
 
 export default function Register() {
+
+  const [newUser , setNewUser] = useState({
+    firstName : "",
+    lastName : "",
+    email: "",
+    password: "",
+  }
+  )
+
+  const handleChange = (e) => {
+  const { name , value } = e.target;
+  setNewUser({ ...newUser , [name] : value })
+  }
+
+  const handleAddUser = async () => {
+    try {
+      await addUser(newUser);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -15,15 +37,31 @@ export default function Register() {
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Name
+                      FirstName
                     </label>
                     <input
-                      type="email"
+                      type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Name"
+                      placeholder="FirstName"
+                      name="firstName"
+                      onChange={handleChange}
                     />
                   </div>
-
+                  <div className="relative w-full mb-3 mt-8 ">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      LastName
+                    </label>
+                    <input
+                      type="text"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="LastName"
+                      name="lastName"
+                      onChange={handleChange}
+                    />
+                  </div>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -35,6 +73,8 @@ export default function Register() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      name="email"
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -49,6 +89,8 @@ export default function Register() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      name="password"
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -76,6 +118,7 @@ export default function Register() {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
+                      onClick={handleAddUser}
                     >
                       Create Account
                     </button>
