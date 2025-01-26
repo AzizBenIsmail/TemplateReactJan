@@ -35,7 +35,7 @@ export default function Login() {
                       className="w-5 mr-1"
                       src={require("assets/img/google.svg").default}
                     />
-                    Google
+                    Gooogle
                   </button>
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
