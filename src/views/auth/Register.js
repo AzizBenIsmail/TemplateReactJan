@@ -1,9 +1,24 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState , useMemo } from "react";
+import { Link , useHistory  } from "react-router-dom";
 import { addUser } from "../../services/apiUser";
+import Cookies from "js-cookie";
 
 export default function Register() {
 
+    const history = useHistory();
+  
+    if (Cookies.get("jwt_token")) {
+      history.push("/landing");
+     }  
+     const jwt_token = Cookies.get("jwt_token")
+     
+   const config = useMemo(() => {
+    return {
+      headers: {
+        Authorization: `Bearer ${jwt_token}`,
+      },
+    };
+  }, [jwt_token]);
   const [newUser , setNewUser] = useState({
     firstName : "",
     lastName : "",
@@ -19,7 +34,8 @@ export default function Register() {
 
   const handleAddUser = async () => {
     try {
-      await addUser(newUser);
+      await addUser(newUser,config);
+      history.push("/auth/login");
     } catch (error) {
       console.log(error);
     }

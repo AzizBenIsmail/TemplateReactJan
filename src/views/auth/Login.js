@@ -1,9 +1,69 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React , {useState}from "react";
+import { Link , useHistory  } from "react-router-dom";
+import { login_post } from "../../services/apiUser";
+import {NotificationContainer, NotificationManager } from 'react-notifications'
+import 'react-notifications/lib/notifications.css'
+import Cookies from "js-cookie";
 
 export default function Login() {
+
+  const history = useHistory();
+
+  if (Cookies.get("jwt_token")) {
+    history.push("/landing");
+   }
+
+  
+  const [ user , setUser ] = useState({
+    email: "",
+    password: "",
+  })
+
+  const showNotification = (type, title, message, autoDismissTime = 1000) => {
+    switch (type) {
+      case 'success':
+        NotificationManager.success(message, title, autoDismissTime = 1000)
+        break
+      case 'error':
+        NotificationManager.error(message, title, autoDismissTime = 1000)
+        break
+      case 'info':
+        NotificationManager.info(title, message, autoDismissTime = 3000)
+        break
+      // Ajoutez d'autres types si nécessaire
+      default:
+        break
+    }
+  }
+
+  const handleChange = (e) => {
+    setUser({ ...user , [e.target.name] : e.target.value})
+  }
+
+  const LoginUser = async (user) => {
+  try {
+   const res = await login_post(user)
+   if (res.data.user.roles === "admin") {
+    history.push("/admin");
+   }
+   if (res.data.user.roles === "client") {
+    history.push("/landing");
+   }
+   console.log(res.data.message)
+  
+  } catch (error) {
+    if (error.response.data.message === "incorrect email") {
+      showNotification('info', 'valide !', 'Veuillez entrer une adresse e-mail')
+    }
+    console.log(error)
+  }
+  }
+  
+  
+
   return (
     <>
+          <NotificationContainer/>
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
@@ -56,6 +116,8 @@ export default function Login() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      name="email"
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -70,6 +132,8 @@ export default function Login() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      name="password"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -89,6 +153,7 @@ export default function Login() {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
+                      onClick={ () => { LoginUser(user)}}
                     >
                       Sign In
                     </button>

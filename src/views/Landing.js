@@ -5,8 +5,14 @@ import { Link } from "react-router-dom";
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
-
+import { useHistory  } from "react-router-dom";
+import Cookies from "js-cookie";
 export default function Landing() {
+  const history = useHistory();
+  
+  if (!Cookies.get("jwt_token")) {
+    history.push("/auth/login");
+   }
   return (
     <>
       <Navbar transparent />

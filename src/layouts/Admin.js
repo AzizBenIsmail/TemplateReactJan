@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useMemo}  from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 // components
@@ -15,8 +15,17 @@ import Maps from "views/admin/Maps.js";
 import Gestionxy from "views/admin/Gestionxy";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
-
+import { useHistory  } from "react-router-dom";
+import Cookies from "js-cookie";
 export default function Admin() {
+  const history = useHistory();
+
+  if (!Cookies.get("jwt_token")) {
+    history.push("/auth/login");
+   }
+
+
+
   return (
     <>
       <Sidebar />

@@ -10,12 +10,18 @@ export async function deleteUser(id){
     return await axios.delete(`${apiURL}/deleteUser/${id}`)
 }
 
-export async function addUser(userData){
-    return await axios.post(`${apiURL}/addUser`, userData)
+export async function addUser(userData,config){
+    return await axios.post(`${apiURL}/addUser`, userData,config)
 }
 
 export async function addUserwithImg(formData){
     return await axios.post(`${apiURL}/addClient`, formData,{
         headers: {'Content-Type': 'multipart/form-data'},
+    })
+}
+
+export async function login_post(userData){
+    return await axios.post(`${apiURL}/login`, userData,{
+        withCredentials: true,
     })
 }
